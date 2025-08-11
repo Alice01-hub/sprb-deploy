@@ -1,0 +1,233 @@
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import { motion, AnimatePresence } from 'framer-motion'
+
+interface ImageSliderProps {
+  images: Array<{
+    src: string
+    label: string
+  }>
+  title: string
+  autoPlay?: boolean
+  interval?: number
+  onImageClick?: (imageIndex: number) => void // 新增：点击图片的回调
+  isPlaying?: boolean // 新增：外部控制播放状态
+  onPlayPauseChange?: (isPlaying: boolean) => void // 新增：播放状态变化回调
+}
+
+const SliderContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+`
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`
+
+const SliderImage = styled(motion.img)<{ clickable?: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  cursor: none !important; /* 🦋 使用蝴蝶鼠标 */
+  transition: none; /* 🔧 移除CSS transition，避免与framer-motion冲突 */
+`
+
+const ImageOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.3) 70%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  pointer-events: none;
+`
+
+const ImageLabel = styled(motion.div)`
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  z-index: 10;
+`
+
+
+
+const DotsContainer = styled.div`
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+`
+
+const Dot = styled(motion.button)<{ active?: boolean }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: ${props => props.active ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.4)'};
+  cursor: none !important; /* 🦋 使用蝴蝶鼠标 */
+  transition: none; /* 🔧 移除CSS transition，避免与framer-motion冲突 */
+`
+
+const ImageSlider: React.FC<ImageSliderProps> = ({ 
+  images, 
+  title, 
+  autoPlay = true, 
+  interval = 3000,
+  onImageClick, // 新增：点击回调
+  isPlaying: externalIsPlaying, // 新增：外部播放状态
+  // onPlayPauseChange // 新增：播放状态变化回调 - 暂时未使用
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  // const [internalIsPlaying, setInternalIsPlaying] = useState(autoPlay) // 暂时未使用
+  
+  // 使用外部播放状态或默认值
+  const isPlaying = externalIsPlaying !== undefined ? externalIsPlaying : autoPlay
+
+  // 自动播放逻辑
+  useEffect(() => {
+    if (!isPlaying || images.length <= 1) return
+
+    const timer = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % images.length)
+    }, interval)
+
+    return () => clearInterval(timer)
+  }, [isPlaying, images.length, interval])
+
+  // 这些函数暂时未使用，但保留以备将来扩展功能
+  // const handlePrevious = () => {
+  //   setCurrentIndex(prev => (prev - 1 + images.length) % images.length)
+  // }
+
+  // const handleNext = () => {
+  //   setCurrentIndex(prev => (prev + 1) % images.length)
+  // }
+
+  // const handlePlayPause = () => {
+  //   const newIsPlaying = !isPlaying
+  //   if (onPlayPauseChange) {
+  //     onPlayPauseChange(newIsPlaying)
+  //   } else {
+  //     setInternalIsPlaying(newIsPlaying)
+  //   }
+  // }
+
+  // 新增：处理图片点击
+  const handleImageClick = () => {
+    if (onImageClick) {
+      onImageClick(currentIndex)
+    }
+  }
+
+  if (images.length === 0) {
+    return (
+      <SliderContainer>
+        <div style={{ 
+          width: '100%', 
+          height: '100%', 
+          background: '#f0f0f0', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          color: '#666',
+          fontSize: '14px'
+        }}>
+          暂无图片
+        </div>
+      </SliderContainer>
+    )
+  }
+
+  return (
+    <SliderContainer>
+      <ImageContainer>
+        <AnimatePresence mode="wait">
+          <SliderImage
+            key={currentIndex}
+            src={images[currentIndex].src}
+            alt={`${title} - ${images[currentIndex].label}`}
+            clickable={!!onImageClick}
+            onClick={handleImageClick}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            whileHover={onImageClick ? { 
+              scale: 1.02 
+            } : {}}
+            transition={{ 
+              duration: 0.5, 
+              ease: "easeInOut",
+              scale: {
+                type: "spring",
+                stiffness: 400,
+                damping: 25,
+                duration: 0.15
+              }
+            }}
+          />
+        </AnimatePresence>
+        
+        <ImageOverlay />
+        
+        <ImageLabel
+          key={`label-${currentIndex}`}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          {images[currentIndex].label}
+        </ImageLabel>
+
+
+
+        {/* 指示器 */}
+        {images.length > 1 && (
+          <DotsContainer>
+            {images.map((_, index) => (
+              <Dot
+                key={index}
+                active={index === currentIndex}
+                onClick={() => setCurrentIndex(index)}
+                whileHover={{ 
+                  scale: 1.1,
+                  background: "rgba(255, 255, 255, 0.7)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 25,
+                  duration: 0.15
+                }}
+              />
+            ))}
+          </DotsContainer>
+        )}
+      </ImageContainer>
+    </SliderContainer>
+  )
+}
+
+export default ImageSlider 

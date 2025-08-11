@@ -1,0 +1,226 @@
+/* 全局样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 夏日主题配色 */
+:root {
+  --primary-orange: #ff9a6b;
+  --primary-yellow: #ffd06b;
+  --sky-blue: #87ceeb;
+  --ocean-blue: #4682b4;
+  --warm-white: #faf8f3;
+  --diary-brown: #8b4513;
+  --text-brown: #5d4037;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+body {
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', sans-serif;
+  background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow), var(--sky-blue));
+  min-height: 100vh;
+  color: var(--text-brown);
+  overflow-x: hidden;
+  cursor: none; /* 隐藏默认鼠标 */
+}
+
+/* 🦋 强制所有可点击元素使用蝴蝶鼠标特效 */
+*, *:hover, *:focus, *:active,
+a, a:hover, a:focus, a:active,
+button, button:hover, button:focus, button:active,
+input, input:hover, input:focus, input:active,
+select, select:hover, select:focus, select:active,
+textarea, textarea:hover, textarea:focus, textarea:active,
+[role="button"], [role="button"]:hover, [role="button"]:focus, [role="button"]:active,
+.clickable, .clickable:hover, .clickable:focus, .clickable:active,
+[tabindex], [tabindex]:hover, [tabindex]:focus, [tabindex]:active {
+  cursor: none !important;
+  pointer-events: auto !important; /* 确保点击功能正常 */
+}
+
+/* 🦋 覆盖所有可能的cursor设置 */
+*[style*="cursor"],
+*[class*="styled"],
+*[class*="sc-"],
+div[class*="Lock"],
+div[class*="Button"],
+div[class*="Item"],
+div[class*="Card"],
+img[class*="Image"] {
+  cursor: none !important;
+}
+
+/* 🦋 特殊情况处理 - 使用属性选择器 */
+*[cursor="pointer"],
+*[style*="cursor: pointer"],
+*[style*="cursor:pointer"] {
+  cursor: none !important;
+}
+
+/* 性能优化：减少重排重绘 */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 确保所有元素都能正常点击 */
+* {
+  pointer-events: auto;
+}
+
+/* 提高动画性能 */
+@media (prefers-reduced-motion: no-preference) {
+  .butterfly-cursor,
+  .butterfly-wing {
+    contain: layout style paint;
+  }
+}
+
+/* 蝴蝶鼠标容器 */
+.butterfly-cursor {
+  position: fixed;
+  pointer-events: none !important; /* 绝对不阻挡点击事件 */
+  z-index: 9999;
+  width: 40px;
+  height: 40px;
+  top: 0;
+  left: 0;
+  will-change: transform; /* 启用硬件加速 */
+  backface-visibility: hidden; /* 启用硬件加速 */
+  transform-style: preserve-3d; /* 启用3D变换 */
+  border: none !important; /* 🦋 确保容器没有边框 */
+  outline: none !important; /* 🦋 确保容器没有轮廓 */
+  box-shadow: none !important; /* 🦋 确保容器没有阴影 */
+  background: transparent !important; /* 🦋 确保容器背景透明 */
+}
+
+/* 蝴蝶扇动动画 */
+.butterfly-wing {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: butterflyWings 0.6s infinite alternate ease-in-out;
+  will-change: transform, filter; /* 启用硬件加速 */
+  backface-visibility: hidden; /* 启用硬件加速 */
+  transform: translateZ(0); /* 强制启用硬件加速 */
+  image-rendering: optimizeSpeed; /* 优化图片渲染性能 */
+  pointer-events: none !important; /* 确保图片不阻挡点击 */
+  border: none !important; /* 🦋 确保图片没有边框 */
+  outline: none !important; /* 🦋 确保图片没有轮廓 */
+  box-shadow: none !important; /* 🦋 确保图片没有阴影 */
+  background: transparent !important; /* 🦋 确保图片背景透明 */
+  /* 🦋 移除黑色阴影外框，保持蝴蝶纯净的外观 */
+}
+
+@keyframes butterflyWings {
+  0% {
+    transform: translateZ(0) scale3d(1, 1, 1);
+  }
+  100% {
+    transform: translateZ(0) scale3d(1.1, 1.1, 1);
+  }
+}
+
+/* 在可点击区域时的特殊效果 */
+.butterfly-cursor.on-clickable .butterfly-wing {
+  animation: butterflyWingsClickable 0.4s infinite alternate ease-in-out;
+  /* 🦋 移除金色光晕特效，保持纯净外观 */
+}
+
+@keyframes butterflyWingsClickable {
+  0% {
+    transform: translateZ(0) scale3d(1, 1, 1) rotate3d(0, 0, 1, -2deg);
+  }
+  100% {
+    transform: translateZ(0) scale3d(1.2, 1.2, 1) rotate3d(0, 0, 1, 2deg);
+  }
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* 通用动画类 */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* 日记本样式 */
+.diary-paper {
+  background: var(--warm-white);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  border-radius: 8px;
+}
+
+/* 夏日按钮样式 */
+.summer-button {
+  background: linear-gradient(45deg, var(--primary-orange), var(--primary-yellow));
+  border: none;
+  border-radius: 25px;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: none !important; /* 🦋 使用蝴蝶鼠标特效 */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 154, 107, 0.3);
+}
+
+.summer-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 154, 107, 0.4);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .summer-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* 音频播放器样式 */
+.audio-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  padding: 10px 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px var(--shadow-color);
+} 
