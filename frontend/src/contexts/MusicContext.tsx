@@ -99,7 +99,7 @@ const defaultPlaylist: Track[] = [
     artist: '高森奈津美',
     src: '/audio/5-高森奈津美 - 比翼の蝶たち.flac',
     album: 'Summer Pockets OST',
-    cover: 'images/covers/5-solagado-ao.webp'
+    cover: 'images/covers/5-空门苍.webp'
   },
   {
     id: 'departure',
@@ -107,7 +107,7 @@ const defaultPlaylist: Track[] = [
     artist: '嶺内ともみ',
     src: '/audio/6-嶺内ともみ - Departure!.flac',
     album: 'Summer Pockets OST',
-    cover: 'images/covers/6-kushima-kamome.webp'
+    cover: 'images/covers/6-久岛鸥.webp'
   },
   {
     id: 'with',
@@ -123,7 +123,7 @@ const defaultPlaylist: Track[] = [
     artist: '小原好美',
     src: '/audio/8-小原好美 - 夏に君を待ちながら.flac',
     album: 'Summer Pockets OST',
-    cover: 'images/covers/8-shiroha.webp'
+    cover: 'images/covers/8-白羽.webp'
   },
   {
     id: 'tsumugi-no-natsuyasumi',
@@ -131,7 +131,7 @@ const defaultPlaylist: Track[] = [
     artist: '岩井映美里',
     src: '/audio/9-岩井映美里,VISUAL ARTS  Key - 紬の夏休み.flac',
     album: 'Summer Pockets OST',
-    cover: 'images/covers/9-tsumugi-no-natsuyasumi.webp'
+    cover: 'images/covers/9-紬的暑假.webp'
   },
   {
     id: 'golden-hours',
@@ -141,6 +141,54 @@ const defaultPlaylist: Track[] = [
     album: 'Summer Pockets OST',
     cover: 'images/covers/10-golden-hours.webp'
   },
+  {
+    id: 'mahou-no-enikki',
+    name: '魔法の絵日記',
+    artist: '小原好美,田中あいみ',
+    src: '/audio/11-鳴瀬しろは(CV.小原好美),加藤うみ(CV.田中あいみ),VISUAL ARTS  Key - 魔法の絵日記.flac',
+    album: 'Summer Pockets OST',
+    cover: 'images/covers/11-魔法日记本.webp'
+  },
+  {
+    id: 'dont-cry-red',
+    name: 'Don\'t Cry Red',
+    artist: 'ファイルーズあい',
+    src: '/audio/12-神山識(CV.ファイルーズあい),VISUAL ARTS  Key - Don\'t Cry Red.flac',
+    album: 'Summer Pockets OST',
+    cover: 'images/covers/12-神山识.webp'
+  },
+  {
+    id: 'yawarakai-kioku',
+    name: '柔らかい記憶',
+    artist: '小山さほみ',
+    src: '/audio/13-水織静久(CV.小山さほみ),VISUAL ARTS  Key - 柔らかい記憶.flac',
+    album: 'Summer Pockets OST',
+    cover: 'images/covers/13-水织静久.webp'
+  },
+  {
+    id: 'shiroha-no-komoriuta',
+    name: 'しろはの子守歌',
+    artist: '小原好美',
+    src: '/audio/14-小原好美,VISUAL ARTS  Key - しろはの子守歌.flac',
+    album: 'Summer Pockets OST',
+    cover: 'images/covers/14-白羽的摇篮曲.webp'
+  },
+  {
+    id: 'dear-familiar',
+    name: 'Dear Familiar',
+    artist: '一宮朔',
+    src: '/audio/15-野村美樹(CV.一宮朔),VISUAL ARTS  Key - Dear Familiar.flac',
+    album: 'Summer Pockets OST',
+    cover: 'images/covers/15-野美希.webp'
+  },
+  {
+    id: 'finisterre',
+    name: 'フィニステラー',
+    artist: '鈴木このみ',
+    src: '/audio/16-鈴木このみ,VISUAL ARTS  Key - フィニステラー.flac',
+    album: 'Summer Pockets OST',
+    cover: 'images/covers/16-加藤羽未.webp'
+  }
 ]
 
 export const MusicProvider: React.FC<MusicProviderProps> = ({ children }) => {

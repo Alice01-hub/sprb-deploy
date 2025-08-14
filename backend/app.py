@@ -568,14 +568,14 @@ async def get_music_playlist():
                 'artist': '高森奈津美',
                 'album': 'Summer Pockets OST',
                 'id': 'hiyoku-no-chou',
-                'cover': 'images/covers/5-soragado-ao.webp'
+                'cover': 'images/covers/5-空门苍.webp'
             },
             '6-嶺内ともみ - Departure!.flac': {
                 'name': 'Departure!',
                 'artist': '嶺内ともみ',
                 'album': 'Summer Pockets OST',
                 'id': 'departure',
-                'cover': 'images/covers/6-kushima-kamome.webp'
+                'cover': 'images/covers/6-久岛鸥.webp'
             },
             '7-嶺内ともみ - with.flac': {
                 'name': 'with',
@@ -589,14 +589,14 @@ async def get_music_playlist():
                 'artist': '小原好美',
                 'album': 'Summer Pockets OST',
                 'id': 'natsu-ni-kimi-wo',
-                'cover': 'images/covers/8-shiroha.webp'
+                'cover': 'images/covers/8-白羽.webp'
             },
             '9-岩井映美里,VISUAL ARTS  Key - 紬の夏休み.flac': {
                 'name': '紬の夏休み',
                 'artist': '岩井映美里',
                 'album': 'Summer Pockets OST',
                 'id': 'tsumugi-no-natsuyasumi',
-                'cover': 'images/covers/9-tsumugi-no-natsuyasumi.webp'
+                'cover': 'images/covers/9-紬的暑假.webp'
             },
             '10-岩井映美里 - Golden Hours.flac': {
                 'name': 'Golden Hours',
@@ -605,6 +605,48 @@ async def get_music_playlist():
                 'id': 'golden-hours',
                 'cover': 'images/covers/10-golden-hours.webp'
             },
+            '11-鳴瀬しろは(CV.小原好美),加藤うみ(CV.田中あいみ),VISUAL ARTS  Key - 魔法の絵日記.flac': {
+                'name': '魔法の絵日記',
+                'artist': '小原好美,田中あいみ',
+                'album': 'Summer Pockets OST',
+                'id': 'mahou-no-enikki',
+                'cover': 'images/covers/11-魔法日记本.webp'
+            },
+            '12-神山識(CV.ファイルーズあい),VISUAL ARTS  Key - Don\'t Cry Red.flac': {
+                'name': 'Don\'t Cry Red',
+                'artist': 'ファイルーズあい',
+                'album': 'Summer Pockets OST',
+                'id': 'dont-cry-red',
+                'cover': 'images/covers/12-神山识.webp'
+            },
+            '13-水織静久(CV.小山さほみ),VISUAL ARTS  Key - 柔らかい記憶.flac': {
+                'name': '柔らかい記憶',
+                'artist': '小山さほみ',
+                'album': 'Summer Pockets OST',
+                'id': 'yawarakai-kioku',
+                'cover': 'images/covers/13-水织静久.webp'
+            },
+            '14-小原好美,VISUAL ARTS  Key - しろはの子守歌.flac': {
+                'name': 'しろはの子守歌',
+                'artist': '小原好美',
+                'album': 'Summer Pockets OST',
+                'id': 'shiroha-no-komoriuta',
+                'cover': 'images/covers/14-白羽的摇篮曲.webp'
+            },
+            '15-野村美樹(CV.一宮朔),VISUAL ARTS  Key - Dear Familiar.flac': {
+                'name': 'Dear Familiar',
+                'artist': '野村美樹(CV.一宮朔)',
+                'album': 'Summer Pockets OST',
+                'id': 'dear-familiar',
+                'cover': 'images/covers/15-野美希.webp'
+            },
+            '16-鈴木このみ,VISUAL ARTS  Key - フィニステラー.flac': {
+                'name': 'フィニステラー',
+                'artist': '鈴木このみ',
+                'album': 'Summer Pockets OST',
+                'id': 'finisterre',
+                'cover': 'images/covers/16-加藤羽未.webp'
+            }
         }
         
         if os.path.exists(public_audio_path):
@@ -639,6 +681,12 @@ async def get_music_playlist():
             'golden-hours',
             'with', 
             'tsumugi-no-natsuyasumi',
+            'mahou-no-enikki',
+            'dont-cry-red',
+            'yawarakai-kioku',
+            'shiroha-no-komoriuta',
+            'dear-familiar',
+            'finisterre',
         ]
         tracks.sort(key=lambda x: order.index(x['id']) if x['id'] in order else len(order))
         
